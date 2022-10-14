@@ -6,10 +6,10 @@ import requests
 from .Organization import Organization
 
 from .environment import auth_token
-from .environment import endpoint
+from .environment import api_url
 
 def login():
-    url = "https://api.codepipes.io/identity/v0/login"
+    url = api_url("identity", "login")
     
     params = { "idpName": "google", 
           "clientRedirect": "http://localhost:52841" }
@@ -22,16 +22,15 @@ def login():
     print(response['redirectURL'])
     webbrowser.open(response['redirectURL'])
 
-def print_url(r, *args, **kwargs):
-    print(r.url)
-
 def logout():
     print("logout")
 
 def organizations():
-    url = "https://api.codepipes.io/identity/v0/organizations"
-    print(url)      
+    url = api_url("identity", "organizations")
     x = requests.get(url, headers = { "Authorization": auth_token })
-    print(x.status_code)
-    print(x.request.path_url)
-    print(x.json())
+    return x.json()
+
+def profile():
+    url = api_url("identity", "users/self/profile")
+    x = requests.get(url, headers = { "Authorization": auth_token })
+    return x.json()
