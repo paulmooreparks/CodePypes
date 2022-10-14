@@ -28,9 +28,13 @@ def logout():
 def organizations():
     url = api_url("identity", "organizations")
     x = requests.get(url, headers = { "Authorization": auth_token })
-    return x.json()
+    json = x.json()
+    x.close()
+    return json
 
 def profile():
     url = api_url("identity", "users/self/profile")
     x = requests.get(url, headers = { "Authorization": auth_token })
-    return x.json()
+    json = x.json()
+    x.close()
+    return json
