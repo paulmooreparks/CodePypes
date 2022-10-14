@@ -6,7 +6,7 @@ def main():
     print(cp.config)
     print()
 
-    rsp = cp.get_profile()
+    rsp = cp.get_self()
     print("Profile:")
     print(rsp)
     print()
