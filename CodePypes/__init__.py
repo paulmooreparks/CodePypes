@@ -1,16 +1,13 @@
-import os
+from .core import endpoint
+from .core import auth_token
+from .core import config
 
-# from .Organization import Organization
-# from .Project import Project
-
-from .environment import endpoint
-from .environment import auth_token
-from .environment import config
-
-# from .identity import login
-# from .identity import logout
-from .identity import profile
-from .identity import organizations
+from .identity import get_profile
+from .identity import get_organizations
+from .identity import get_organizations_by_id
+from .identity import get_organization_by_id
+from .identity import get_organizations_by_name
+from .identity import get_organization_by_name
 
 def __init__():
     pass

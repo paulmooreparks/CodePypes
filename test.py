@@ -2,12 +2,16 @@
 import CodePypes as cp
 
 def main():
-    rsp = cp.profile()
+    print("Config:")
+    print(cp.config)
+    print()
+
+    rsp = cp.get_profile()
     print("Profile:")
     print(rsp)
     print()
 
-    rsp = cp.organizations()
+    rsp = cp.get_organizations()
     print("Organizations:")
     print(rsp)
 

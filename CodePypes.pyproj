@@ -21,7 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CodePypes\environment.py" />
+    <Compile Include="CodePypes\core.py" />
     <Compile Include="CodePypes\identity.py" />
     <Compile Include="CodePypes\Organization.py" />
     <Compile Include="CodePypes\Project.py" />

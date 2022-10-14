@@ -1,40 +1,44 @@
 import json
 from pickle import TRUE
 from sqlite3 import paramstyle
-import webbrowser
-import requests
+from urllib import response
+
 from .Organization import Organization
 
-from .environment import auth_token
-from .environment import api_url
+from .core import auth_token
+from .core import get_api
 
-def login():
-    url = api_url("identity", "login")
-    
-    params = { "idpName": "google", 
-          "clientRedirect": "http://localhost:52841" }
+def get_profile():
+    return get_api("identity", "users/self/profile")
 
-    sso = { "sso": params }
+def get_organizations():
+    return get_api("identity", "organizations")
 
-    x = requests.post(url, json=sso, allow_redirects=TRUE)
+def get_organizations_by_name():
+    org_dict = {}
+    orgs = organizations()
 
-    response = x.json()
-    print(response['redirectURL'])
-    webbrowser.open(response['redirectURL'])
+    if orgs['status_code'] == 200:
+        for org in orgs['response']['orgs']:
+            org_dict[org['name']] = org
 
-def logout():
-    print("logout")
+    return org_dict
 
-def organizations():
-    url = api_url("identity", "organizations")
-    x = requests.get(url, headers = { "Authorization": auth_token })
-    json = x.json()
-    x.close()
-    return json
+def get_organization_by_name(name):
+    orgs = get_organizations_by_name()
+    return orgs[name]
 
-def profile():
-    url = api_url("identity", "users/self/profile")
-    x = requests.get(url, headers = { "Authorization": auth_token })
-    json = x.json()
-    x.close()
-    return json
+def get_organizations_by_id():
+    org_dict = {}
+    orgs = organizations()
+
+    if orgs['status_code'] == 200:
+        for org in orgs['response']['orgs']:
+            org_dict[org['id']] = org
+
+    return org_dict
+
+def get_organization_by_id(id):
+    orgs = get_organizations_by_id()
+    return orgs[id]
+
