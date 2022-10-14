@@ -1,5 +1,4 @@
 
-#from CodePypes import auth
 import CodePypes as cp
 
 def main():

@@ -1,3 +1,3 @@
 # CodePypes
 
-A package for using Code Pipes in Python.
+A package for using [Code Pipes](https://codepipes.io) in Python.
