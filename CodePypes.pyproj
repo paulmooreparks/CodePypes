@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>39f77583-6453-42c6-8f5b-0278f57ac91d</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>codepypes.py</StartupFile>
+    <StartupFile>test.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,10 +21,17 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="codepypes.py" />
+    <Compile Include="CodePypes\functions.py" />
+    <Compile Include="CodePypes\Organization.py" />
+    <Compile Include="CodePypes\Project.py" />
+    <Compile Include="CodePypes\__init__.py" />
+    <Compile Include="test.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CodePypes\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
