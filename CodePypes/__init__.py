@@ -5,6 +5,7 @@ import os
 
 from .environment import endpoint
 from .environment import auth_token
+from .environment import config
 
 # from .identity import login
 # from .identity import logout

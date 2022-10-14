@@ -2,7 +2,8 @@ import os
 import yaml
 from pathlib import Path
 
-endpoint = "api.codepipes.io";
+endpoint = "api.codepipes.io"
+auth_token = ""
 
 home_directory = os.path.expanduser( '~' )
 cp_state_file = ".codepipes_state.yaml"
@@ -16,8 +17,8 @@ endpoint_fmt = "https://{endpoint}"
 endpoint_url = endpoint_fmt.format(endpoint=endpoint)
 api_fmt = "{url}/{api}/{version}/{method}"
 
-auth_token = config['auth_token']
 endpoint = config['connected_endpoint']
+auth_token = config['auth_token']
 version = "v0"
 
 def api_url(api, method):
