@@ -8,7 +8,7 @@ def get_profile(id):
     return get_api("identity", "users/{id}/profile".format(id=id))
 
 def get_self():
-    return get_api("identity", "users/self/profile")
+    return get_profile("self")
 
 def get_organizations():
     return get_api("identity", "organizations")
