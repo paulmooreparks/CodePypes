@@ -2,11 +2,13 @@
 import CodePypes as cp
 
 def main():
+    # cp.refresh_token()
+
     print("Config:")
     print(cp.config)
     print()
 
-    rsp = cp.get_self()
+    rsp = cp.get_profile()
     print("Profile:")
     print(rsp)
     print()

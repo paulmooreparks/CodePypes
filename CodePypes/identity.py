@@ -1,14 +1,17 @@
+from distutils.command.config import config
 import json
 
-from .core import auth_token
+from .core import config
 from .core import get_api
+from .core import post_api
 from .core import make_dict
+from .core import write_config
 
-def get_profile(id):
+def get_user_profile(id):
     return get_api("identity", "users/{id}/profile".format(id=id))
 
-def get_self():
-    return get_profile("self")
+def get_profile():
+    return get_user_profile("self")
 
 def get_organizations():
     return get_api("identity", "organizations")
@@ -51,3 +54,15 @@ def get_project_by_name(organization_id, name):
     projects = get_projects_by_name(organization_id)
     return projects[name]
 
+def refresh_token():
+    body = {"accessToken": config["auth_token"], "refreshToken": config["refresh_token"]}
+    rsp = post_api("identity", "token", json.dumps(body))
+
+    print(rsp)
+    
+    if rsp['status_code'] == 200:
+        config['auth_token'] = rsp['response']['token']
+        config['refresh_token'] = rsp['response']['refreshToken']
+        write_config()
+
+    return rsp

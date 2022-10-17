@@ -5,16 +5,22 @@ import yaml
 from pathlib import Path
 
 endpoint = "api.codepipes.io"
-auth_token = ""
 
 home_directory = os.path.expanduser( '~' )
 cp_state_file = ".codepipes_state.yaml"
 cp_state_path_fmt = "{home}/{file}"
 cp_state_path = cp_state_path_fmt.format(home=home_directory,file=cp_state_file)
 
-config = yaml.safe_load(Path(cp_state_path).read_text())
+def read_config():
+    retval = yaml.safe_load(Path(cp_state_path).read_text())
+    return retval
+
+def write_config():
+    with open(cp_state_path, 'w') as outfile:
+        yaml.dump(config, outfile, default_flow_style=False)
+
+config = read_config()
 endpoint = config['connected_endpoint']
-auth_token = config['auth_token']
 version = "v0"
 
 endpoint_fmt = "https://{endpoint}"
@@ -42,7 +48,14 @@ def api_url(api, method):
 
 def get_api(api, method):
     url = api_url(api, method)
-    rsp = requests.get(url, headers = { "Authorization": auth_token })
+    rsp = requests.get(url, headers = { "Authorization": config['auth_token'] })
+    json = { "status_code": rsp.status_code, "response": rsp.json() }
+    rsp.close()
+    return json
+
+def post_api(api, method, body):
+    url = api_url(api, method)
+    rsp = requests.post(url, headers = { "Authorization": config['auth_token'] }, data = body)
     json = { "status_code": rsp.status_code, "response": rsp.json() }
     rsp.close()
     return json
