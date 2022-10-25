@@ -64,5 +64,6 @@ def refresh_token():
         config['auth_token'] = rsp['response']['token']
         config['refresh_token'] = rsp['response']['refreshToken']
         write_config()
+    else if rsp['status_code'] 
 
     return rsp

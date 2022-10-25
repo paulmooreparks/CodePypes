@@ -4,6 +4,8 @@ import webbrowser
 import yaml
 from pathlib import Path
 
+from .identity import refresh_token
+
 endpoint = "api.codepipes.io"
 
 home_directory = os.path.expanduser( '~' )
@@ -47,17 +49,32 @@ def api_url(api, method):
     return api_fmt.format(url=endpoint_url, version=version, api=api, method=method)
 
 def get_api(api, method):
-    url = api_url(api, method)
-    rsp = requests.get(url, headers = { "Authorization": config['auth_token'] })
-    json = { "status_code": rsp.status_code, "response": rsp.json() }
-    rsp.close()
+    json = {}
+
+    try:
+        url = api_url(api, method)
+        rsp = requests.get(url, headers = { "Authorization": config['auth_token'] })
+        json = rsp.json()
+
+        if rsp.status_code == 401:
+            refresh_token()
+
+    finally:
+        rsp.close()
+
     return json
 
 def post_api(api, method, body):
-    url = api_url(api, method)
-    rsp = requests.post(url, headers = { "Authorization": config['auth_token'] }, data = body)
-    json = { "status_code": rsp.status_code, "response": rsp.json() }
-    rsp.close()
+    json = {}
+
+    try:
+        url = api_url(api, method)
+        rsp = requests.post(url, headers = { "Authorization": config['auth_token'] }, data = body)
+        # rsp.status_code
+        json = rsp.json()
+    finally:
+        rsp.close()
+
     return json
 
 def make_dict(collection, key):
